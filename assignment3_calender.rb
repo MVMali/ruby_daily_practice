@@ -33,7 +33,7 @@ class Calender
   end
 
   def display_events
-    print @hash_calender
+    # print @hash_calender
     sorted_events = @hash_calender.sort_by{|k,v|
       v["event_date"]
     }
@@ -94,10 +94,27 @@ class Calender
 end
 
 #Taking input date as YYYY-MM-DD
+puts "Welcome to your event management calender!!!"
+puts "Give valid date in the yyyy-mm-dd formate"
 user1 = Calender.new
 user1.create_event("Pattern meet","2024-02-4","abc")
 user1.create_event("Standup meet","2024-02-3","xyz")
 user1.create_event("Sprint meet meet","2024-01-3","xyz")
+puts "Enter title none to exit"
+loop do
+  print("Title:")
+  title = gets.chomp
+  if(title == "none")
+    break
+  end
+
+  print("Date:")
+  date = gets.chomp
+  print("Description:")
+  description = gets.chomp
+  user1.create_event(title,date,description)
+end
+
 
 
 
