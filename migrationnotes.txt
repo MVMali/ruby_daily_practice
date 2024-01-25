@@ -1,0 +1,41 @@
+Migrations are used for the Data defination langauge like creating 
+a table, updating a table  and many more operations related to the 
+changing the table fields.
+
+Migrations are not limited to the schema we can also use them to 
+fix incorrect data in the database or populate new fields 
+
+Migration class inherits from the Active Record ,
+Active Record gives different methods for DDL
+add_column
+add_index
+change_column
+change_table
+drop_table
+remove_column
+rename_index
+rename_column
+
+Naming convention for the migration files are starting is the timestamp
+and when creating a migration then name should be in CamelCase format 
+for example 
+rails g migration AddDetailsToProducts
+=> then the migration files are genrated is timestamp_add_details_to_products
+
+If you’re going to need to use any other methods, you’ll have to write the up and down methods instead of using the change method.
+
+For running the migrations 
+rails db:migrate VERSION:"you may or not specify here version"
+rails db:rollback VERSION:
+
+Suppose we have created one migration and we want to edit that migration we cannot do it directly in that only
+we have to first rollback the migration and then we can only run the migration . without this there will be no
+refelection of our edited migration .,
+So rather than editing the migration creates a new migration and then run that new migration.
+
+
+rails db:reset will drop the database
+
+running specific migration 
+rails db:migrate:up VERSION:
+
