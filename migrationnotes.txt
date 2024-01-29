@@ -39,3 +39,4 @@ rails db:reset will drop the database
 running specific migration 
 rails db:migrate:up VERSION:
 
+iterators 

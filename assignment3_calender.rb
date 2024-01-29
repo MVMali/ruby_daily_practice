@@ -95,12 +95,16 @@ end
 
 #Taking input date as YYYY-MM-DD
 puts "Welcome to your event management calender!!!"
+
 puts "Give valid date in the yyyy-mm-dd formate"
+
 user1 = Calender.new
 user1.create_event("Pattern meet","2024-02-4","abc")
-user1.create_event("Standup meet","2024-02-3","xyz")
+user1.create_event("pattern meet","2024-02-3","xyz")
 user1.create_event("Sprint meet meet","2024-01-3","xyz")
+
 puts "Enter title none to exit"
+
 loop do
   print("Title:")
   title = gets.chomp
@@ -113,6 +117,7 @@ loop do
   print("Description:")
   description = gets.chomp
   user1.create_event(title,date,description)
+
 end
 
 

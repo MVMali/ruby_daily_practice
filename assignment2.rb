@@ -167,19 +167,19 @@
 # obj.publicMethod
 
 # Declaring a module to greet a person
-# module Greetings
+module Greetings
 
-#   def self.included(person_to_be_greeted)
+  def self.included(person_to_be_greeted)
 
-#     puts "The #{person_to_be_greeted} is welcomed with an open heart !"
-#   end
-# end
+    puts "The #{person_to_be_greeted} is welcomed with an open heart !"
+  end
+end
 
 
 #   # Class where the module is included
-# class Person
-#   include Greetings # implementation of the include statement
-# end
+class Person
+  include Greetings # implementation of the include statement
+end
 
 #struct class
 # Customer = Struct.new(:name,:hobby) do

@@ -1,4 +1,3 @@
-
 # Assignment_1: "Classes and Object"
 # Student Information System
 # Create a Ruby program that simulates a simple student information system. You should define a class Student with the following attributes:
@@ -8,8 +7,6 @@
 # Implement the following methods within the Student class:
 # Display Information: Implement a method to display the student's information, including name, roll number, and subject-wise marks.
 # Calculate Average: Implement a method to calculate and return the average marks of the student.
-
-
 
 
 $courses = ["Math","Science","English"]
