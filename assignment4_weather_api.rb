@@ -25,7 +25,7 @@ module ProcessResponse
           <<<<-------------------------------------------->>>>\n
           #{condition_weather} Weather\n
           <<<<-------------------------------------------->>>>\n
-          Temprature in F/C #{Kelvin_to_degree_celcius(main_weather["temp"])}C\n
+          Temprature in /C #{Kelvin_to_degree_celcius(main_weather["temp"])}C\n
           <<<<-------------------------------------------->>>>\n
           Minimum Temprature #{Kelvin_to_degree_celcius(main_weather["temp_min"])}C\n
           <<<<-------------------------------------------->>>>\n
@@ -58,7 +58,7 @@ module ErorrHandlingModule
       when 500...600
         puts "Server Side error #{response.code}"
         exit
-  end
+    end
   end
 end
 
@@ -84,5 +84,8 @@ class WeatherApp
   end
 end
 
-pattern = WeatherApp.new("Pune")
+print("Enter City name:")
+city_name = gets.chomp
+
+pattern = WeatherApp.new(city_name)
 pattern.todays_weather
