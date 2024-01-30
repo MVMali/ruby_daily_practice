@@ -26,20 +26,21 @@ class Account
 
   def deposit(amount)
     @balance += amount
-    puts "#{amount} Credited to your account"
+    return "#{amount} Credited to your account"
   end
 
   def withdraw(amount)
     if @balance - amount < 0
       puts "Insufficient balance you can't withdraw #{amount}"
-      return
+      return false
     end
     @balance -= amount
     puts "#{amount} debited from your account"
+    return true
   end
 
   def display_balance
-    puts "Current Balance of the account #{@balance}"
+     "Current Balance of the account #{@balance}"
   end
 
 
@@ -47,13 +48,13 @@ end
 
 user1 = Account.new
 user1.deposit(1200)
-# user1.withdraw(120)
-# user1.display_balance
+user1.withdraw(120)
+user1.display_balance
 
 user2 = Account.new
 user2.deposit(1500)
-# user1.withdraw(120)
-# user2.display_balance
+user1.withdraw(120)
+user2.display_balance
 
 #Task2
 class Bank
@@ -65,14 +66,18 @@ class Bank
   def add_account(account)
     if account.class.to_s == "Account"
       @@accounts.store(account.account_number,account)
-      puts "Account added to database succesful"
+      "Account added to database succesful"
     else
-      puts "Given instance is not belongs to Account class"
+      "Given instance is not belongs to Account class"
     end
   end
 
   def remove_account(account_no)
-    check_valid_account?(@@accounts,account_no)?@@accounts.delete(account_no):""
+    if check_valid_account?(@@accounts,account_no)
+      @@accounts.delete(account_no)
+      return true
+    end
+    return false
   end
 
   def display_all_accounts
