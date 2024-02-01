@@ -10,7 +10,7 @@ module ProcessResponse
     return response[0]["lat"],response[0]["lon"]
   end
 
-  def  Kelvin_to_degree_celcius(temp)
+  def  kelvin_to_degree_celcius(temp)
     return (temp - 273.15).round(2)
   end
 
@@ -25,11 +25,11 @@ module ProcessResponse
           <<<<-------------------------------------------->>>>\n
           #{condition_weather} Weather\n
           <<<<-------------------------------------------->>>>\n
-          Temprature in /C #{Kelvin_to_degree_celcius(main_weather["temp"])}C\n
+          Temprature in /C #{kelvin_to_degree_celcius(main_weather["temp"])}C\n
           <<<<-------------------------------------------->>>>\n
-          Minimum Temprature #{Kelvin_to_degree_celcius(main_weather["temp_min"])}C\n
+          Minimum Temprature #{kelvin_to_degree_celcius(main_weather["temp_min"])}C\n
           <<<<-------------------------------------------->>>>\n
-          Maximum Temprature #{Kelvin_to_degree_celcius(main_weather["temp_max"])}C\n
+          Maximum Temprature #{kelvin_to_degree_celcius(main_weather["temp_max"])}C\n
           <<<<-------------------------------------------->>>>\n
           Pressure #{main_weather["pressure"]}\n
           <<<<-------------------------------------------->>>>\n
@@ -46,7 +46,7 @@ module ErorrHandlingModule
 
     if(response == nil || response.length == 0)
       puts "There might be you have entered wrong city name!!!"
-      exit
+      raise "Exception Created for having response #{response}"
     end
 
     case response.code
@@ -54,10 +54,10 @@ module ErorrHandlingModule
         true
       when 404
         puts "Requested data not found"
-        exit
+        raise " Not found #{response.code}"
       when 500...600
         puts "Server Side error #{response.code}"
-        exit
+        raise "Server Side error #{response.code}"
     end
   end
 end
@@ -68,12 +68,18 @@ class WeatherApp
   include ErorrHandlingModule
 
   def initialize(city_name)
+
+    validate_city_name(city_name)
+    begin
     getcitylocation = HTTParty.get("https://api.openweathermap.org/geo/1.0/direct?q=#{city_name}&limit=5&appid=bc4f338f7cac50913f5c4d2f183b6876")
     if request_to_api_success?(getcitylocation)
       lat,lon = get_lat_and_lon(getcitylocation)
 
       @response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=bc4f338f7cac50913f5c4d2f183b6876")
       request_to_api_success?(@response)
+    end
+    rescue
+      raise "Exception raised api call failed"
     end
 
   end
@@ -82,7 +88,17 @@ class WeatherApp
     request_to_api_success?(@response)
     get_todays_weather_info(@response)
   end
+
+  private
+
+  def validate_city_name(city_name)
+    if city_name =~ /^[a-zA-Z\s-]+$/
+    else
+      raise "Exception Created Invalid city name: #{city_name}"
+    end
+  end
 end
+
 
 print("Enter City name:")
 city_name = gets.chomp
